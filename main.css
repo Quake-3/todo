@@ -1,0 +1,97 @@
+body {
+	text-align: center;
+	font-size: 1.5em;
+	font-family: Arial;
+}
+
+h1 {
+	font: 2.5em Mali;
+}
+
+li {
+	list-style: none;
+}
+
+.header {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#myInput {
+	width: 300px;
+	height: 30px;
+	font-size: 25px;
+	padding-left: 15px;
+	outline: none;
+	border: 2px solid #bbb;
+	display: inline-block;
+	transition: all .3s;
+}
+
+#myInput:focus {
+	box-shadow: 0 5px 10px rgba(0,0,0,.3);
+}
+
+.addBtn {
+	display: inline-block;
+	width: 60px;
+	height: 36px;
+	background: #aaa;
+	line-height: 36px;
+	margin-left: 15px;
+	cursor: pointer;
+	color: #fff;
+	transition: all .3s;
+}
+
+.addBtn:hover {
+	background: #eee;
+	color: #aaa;
+}
+
+#myUL {
+	padding: 0;
+	text-align: center;
+	width: 80%;
+	margin: 25px auto;
+}
+
+#myUL > li {
+	height: 40px;
+	line-height: 40px;
+	font-size: 20px;
+	background: #eee;
+	margin-top: 5px;
+	text-align: left;
+	padding-left: 25px;
+}
+
+.close {
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	background: #ccc;
+	position: absolute;
+	right: 10%;
+	text-align: center;
+	cursor: pointer;
+	transition: all .3s;
+}
+
+.close:hover {
+	background: #f05837;
+	color: #fff;
+}
+
+
+
+
+
+
+
+
