@@ -68,7 +68,7 @@ li {
 	background: #eee;
 	margin-top: 5px;
 	text-align: left;
-	padding-left: 25px;
+	padding-left: 15px;
 }
 
 .close {
@@ -88,10 +88,19 @@ li {
 	color: #fff;
 }
 
+#counter {
+	width: 36px;
+	height: 36px;
+	background: #aaa;
+	margin-left: 25px;
+	line-height: 36px;
+	color: #2e2e2e;
+}
 
-
-
-
-
-
-
+input[type="checkbox"] {
+	float: left;
+	height: 30px;
+	width: 30px;
+	margin-top: 5px;
+	margin-right: 25px;
+}
