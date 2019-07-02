@@ -1,6 +1,5 @@
 var myNodelist = document.getElementsByTagName("LI");
-var i;
-for (i = 0; i < myNodelist.length; i++) {
+for (var i = 0; i < myNodelist.length; i++) {
   var span = document.createElement("SPAN");
   var txt = document.createTextNode("\u00D7");
   span.className = "close";
@@ -9,11 +8,10 @@ for (i = 0; i < myNodelist.length; i++) {
 }
 
 var close = document.getElementsByClassName("close");
-var i;
-for (i = 0; i < close.length; i++) {
+for (var i = 0;i<close.length;i++) {
   close[i].onclick = function() {
-    var div = this.parentElement;
-    div.style.display = "none";
+		var div = this.parentElement;
+    div.remove();
   }
 }
 
@@ -25,62 +23,52 @@ list.addEventListener('click', function(ev) {
 }, false);
 
 function newElement() {
+	var checkbox = document.createElement('input');
+	checkbox.type = "checkbox";
   var li = document.createElement("li");
   var inputValue = document.getElementById("myInput").value;
   var t = document.createTextNode(inputValue);
+
   li.appendChild(t);
   if (inputValue === '') {
     
   } else {
+		li.appendChild(checkbox);
     document.getElementById("myUL").appendChild(li);
-  }
-  document.getElementById("myInput").value = "";
+				
+	}
 
+		
+		
+		
+		
+		
+  document.getElementById("myInput").value = "";
+	var c = document.getElementById("myUL").childElementCount;
+	document.getElementById('counter').innerHTML = c;
   var span = document.createElement("SPAN");
   var txt = document.createTextNode("\u00D7");
   span.className = "close";
   span.appendChild(txt);
   li.appendChild(span);
 
-  for (i = 0; i < close.length; i++) {
+  for (i = 0;i<close.length;i++) {
     close[i].onclick = function() {
-      var div = this.parentElement;
-      div.style.display = "none";
+			var div = this.parentElement;
+      div.remove();
+			document.getElementById('counter').innerHTML -=1;
     }
   }
 
-
-document.getElementsByClassName('addBtn').onclick = function() {
-  if(document.getElementsByTagName('li')) {
-    localStorage.setItem('li', "document.createElement('li')");
-  } else {
-    localStorage.setItem('li', "false");
-  }
-}
-if (localStorage.getItem('li') == "document.createElement('li')") {
-  document.createElement("li");
-}
+	
 
 
-
-
-
-
-
-
-}
-
-class Todo {
-	constructor(text,isComplete = false){
-		this.text = text;
-		this.complete = !isComplete;
-	}
-	add(){
-
-	}
-	remove(){
-
-	}
+	
+	
+	
+	
+	
+	
 }
 
 
