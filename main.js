@@ -23,16 +23,21 @@ list.addEventListener('click', function(ev) {
 }, false);
 
 function newElement() {
+  var edit = document.createElement('span');
+  edit.className = "editor";
+  var textEdit = document.createTextNode("Edit");
 	var checkbox = document.createElement('input');
 	checkbox.type = "checkbox";
   var li = document.createElement("li");
   var inputValue = document.getElementById("myInput").value;
   var t = document.createTextNode(inputValue);
-
+  
+  edit.appendChild(textEdit);
   li.appendChild(t);
   if (inputValue === '') {
     
   } else {
+    li.appendChild(edit);
 		li.appendChild(checkbox);
     document.getElementById("myUL").appendChild(li);
 				
@@ -60,6 +65,7 @@ function newElement() {
     }
   }
 
+ 
 	
 
 
