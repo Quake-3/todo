@@ -104,3 +104,22 @@ input[type="checkbox"] {
 	margin-top: 5px;
 	margin-right: 25px;
 }
+.editor {
+  width: 70px;
+  height: 36px;
+  background: #5DFC0A;
+  display: inline-block;
+  font-size: 20px;
+  line-height: 35px;
+  text-align: center;
+  color: #fff;
+  float: right;
+  margin-right: 45px;
+  margin-top: 2px;
+  cursor: pointer;
+  transition: all .3s;
+}
+
+.editor:hover {
+  background: #49E20E;
+}
