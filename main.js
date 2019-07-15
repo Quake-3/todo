@@ -159,7 +159,7 @@ class TodoListView {
 		this.$form = document.getElementById('todo-form');
 		this.$form.onsubmit = this.createTodo.bind(this);
 
-		this.$todos = this.todoList.map(todo => this._createNewElement(todo));
+		this.$todos = this.todoList.todos.map(todo => this._createNewElement(todo));
 	}
 
 	createTodo(e) {
