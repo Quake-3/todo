@@ -34,6 +34,15 @@ class TodoList {
 		var todoStr = JSON.stringify(this.todos);
 		localStorage.setItem("todos",todoStr);
 	}
+	static load(){
+		var todoStr = localStorage.getItem('todos');
+		var todos = JSON.parse(todoStr);
+		var todos = todos.map(function(todo){
+			return new Todo(todo.text,todo.isComplete);
+		});
+		var todoList = new TodoList(todos);
+		return todoList;
+	}
 }
 
 class TodoView {
@@ -182,7 +191,7 @@ class TodoListView {
 	}
 }
 
-const list = new TodoList();
+const list = TodoList.load();
 const listView = new TodoListView(list);
 
 window.list = list;
