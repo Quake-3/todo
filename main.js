@@ -17,7 +17,9 @@ class TodoList {
 	add(text) {
 		var todo = new Todo(text);
 		this.todos.push(todo);
+		this.save();
 		return todo;
+		
 	}
 
 	remove(todo) {
@@ -25,7 +27,12 @@ class TodoList {
 		if (index >= 0) {
 			this.todos.splice(index,1);
 		}
+		this.save();
 		return index;
+	}
+	save() {
+		var todoStr = JSON.stringify(this.todos);
+		localStorage.setItem("todos",todoStr);
 	}
 }
 
