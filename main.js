@@ -17,7 +17,6 @@ class TodoList {
 	add(text) {
 		var todo = new Todo(text);
 		this.todos.push(todo);
-
 		return todo;
 	}
 
@@ -26,7 +25,6 @@ class TodoList {
 		if (index >= 0) {
 			this.todos.splice(index,1);
 		}
-
 		return index;
 	}
 }
@@ -49,10 +47,29 @@ class TodoView {
 		this.$closeBtn.className = "close";
 		this.$closeBtn.onclick = this._onRemove.bind(this);
 
+
+		this.$checkBtn = document.createElement('input');
+		this.$checkBtn.type = "checkbox";
+		this.$checkBtn.className = "checkboxBtn";
+		this.$checkBtn.onchange = this._onToggle.bind(this);
+
+		$el.appendChild(this.$checkBtn);
 		$el.appendChild(this.$text);
 		$el.appendChild(this.$closeBtn);
 
+
 		this.$el = $el;
+	}
+
+	_onToggle() {
+		this.todo.isComplete = this.$checkBtn.checked;
+		if (this.$checkBtn.checked) {
+			this.$text.style.textDecoration = 'line-through';
+			this.$text.style.color = '#999';
+		}else{
+			this.$text.style.textDecoration = 'none';
+			this.$text.style.color = '#000';
+		}
 	}
 
 	_onRemove() {
@@ -87,12 +104,14 @@ class TodoView {
 
 	_buildEditor() {
 		const $form = document.createElement('form');
+		$form.className = 'editor';
 		const $input = document.createElement('input');
 		$input.value = this.todo.text;
+		$input.maxLength = 35;
+		$input.className = "editInput"
 		$form.onsubmit = this._onFormSubmit.bind(this);
 		$form.hidden = true; // by default form is hidden 
 		$form.appendChild($input);
-
 		return $form;
 	}
 
@@ -105,12 +124,14 @@ class TodoView {
 		this.$text.hidden = true;
 		this.$closeBtn.hidden = true;
 		this.$form.hidden = false;
+		this.$form.style.display = 'inline';
 	}
 
 	hideEditor() {
 		this.$text.hidden = false;
 		this.$closeBtn.hidden = false;
 		this.$form.hidden = true;
+		this.$form.style.display = 'none';
 	}
 }
 
