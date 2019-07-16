@@ -1,5 +1,5 @@
 class Todo {
-	constructor (text, isComplete = false){
+	constructor(text, isComplete = false) {
 		this.text = text;
 		this.isComplete = isComplete;
 	}
@@ -10,23 +10,42 @@ class Todo {
 
 
 class TodoList {
-	constructor(todos = []){
+	constructor(todos = []) {
 		this.todos = todos;
 	}
 
 	add(text) {
 		var todo = new Todo(text);
 		this.todos.push(todo);
+		this.save();
 		return todo;
 	}
 
 	remove(todo) {
 		const index = this.todos.indexOf(todo);
 		if (index >= 0) {
-			this.todos.splice(index,1);
+			this.todos.splice(index, 1);	
 		}
+		this.save();
 		return index;
 	}
+	save() {
+		var todoStr = JSON.stringify(this.todos);
+		localStorage.setItem("todos", todoStr);
+	}
+	static load() {
+		var todoStr = localStorage.getItem("todos");
+		var todos = JSON.parse(todoStr);
+		if(todos !== null) {
+		var toDos = todos.map(function (todo) {
+			return new Todo(todo.text, todo.isComplete);
+		});
+		}
+		
+		var todoList = new TodoList(toDos);
+		return todoList;
+	}
+	
 }
 
 class TodoView {
@@ -66,15 +85,15 @@ class TodoView {
 		if (this.$checkBtn.checked) {
 			this.$text.style.textDecoration = 'line-through';
 			this.$text.style.color = '#999';
-		}else{
+		} else {
 			this.$text.style.textDecoration = 'none';
 			this.$text.style.color = '#000';
 		}
 	}
 
 	_onRemove() {
-		if(this.onRemove) {
-			 this.onRemove(this.todo);
+		if (this.onRemove) {
+			this.onRemove(this.todo);
 		}
 	}
 
@@ -89,12 +108,12 @@ class TodoView {
 	setText(newText) {
 		this.todo.text = newText;
 		this.$text.textContent = newText;
-	} 
+	}
 
 	_onFormSubmit(e) {
 		e.preventDefault();
-
-		const $input =  e.target[0];
+		
+		const $input = e.target[0];
 		const value = $input.value.trim();
 		if (value.length) {
 			this.setText(value);
@@ -115,10 +134,10 @@ class TodoView {
 		return $form;
 	}
 
- 	showEditor() {
+	showEditor() {
 		if (!this.$form) {
-			 this.$form = this._buildEditor();
-			 this.$el.appendChild(this.$form);
+			this.$form = this._buildEditor();
+			this.$el.appendChild(this.$form);
 		}
 
 		this.$text.hidden = true;
@@ -142,8 +161,8 @@ class TodoListView {
 		this.$list = document.getElementById("myUL");
 		this.$form = document.getElementById('todo-form');
 		this.$form.onsubmit = this.createTodo.bind(this);
-
 		this.$todos = [];
+		this.todoList.todos.forEach(todo => this._createNewElement(todo));
 	}
 
 	createTodo(e) {
@@ -161,11 +180,11 @@ class TodoListView {
 
 	_createNewElement(todo) {
 		const todoView = new TodoView(todo);
-		todoView.onRemove =  this._removeElement.bind(this);
+		todoView.onRemove = this._removeElement.bind(this);
 		const $el = todoView.build();
 
 		this.$todos.push($el);
-  		this.$list.appendChild($el);
+		this.$list.appendChild($el);
 	}
 
 	_removeElement(todo) {
@@ -175,7 +194,7 @@ class TodoListView {
 	}
 }
 
-const list = new TodoList();
+const list = TodoList.load();
 const listView = new TodoListView(list);
 
 window.list = list;
