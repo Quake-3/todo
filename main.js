@@ -19,6 +19,7 @@ class TodoList {
 		this.todos.push(todo);
 		this.save();
 		return todo;
+		
 	}
 
 	remove(todo) {
@@ -31,6 +32,7 @@ class TodoList {
 	}
 	save() {
 		var todoStr = JSON.stringify(this.todos);
+<<<<<<< HEAD
 		localStorage.setItem("todos", todoStr);
 	}
 	static load() {
@@ -46,6 +48,19 @@ class TodoList {
 		return todoList;
 	}
 	
+=======
+		localStorage.setItem("todos",todoStr);
+	}
+	static load(){
+		var todoStr = localStorage.getItem('todos');
+		var todos = JSON.parse(todoStr);
+		var todos = todos.map(function(todo){
+			return new Todo(todo.text,todo.isComplete);
+		});
+		var todoList = new TodoList(todos);
+		return todoList;
+	}
+>>>>>>> a634473c0d5573a26eeeee17fd1fdc2533cb0d50
 }
 
 class TodoView {
