@@ -19,7 +19,6 @@ class TodoList {
 		this.todos.push(todo);
 		this.save();
 		return todo;
-		
 	}
 
 	remove(todo) {
@@ -30,11 +29,12 @@ class TodoList {
 		this.save();
 		return index;
 	}
+
 	save() {
 		var todoStr = JSON.stringify(this.todos);
-<<<<<<< HEAD
 		localStorage.setItem("todos", todoStr);
 	}
+
 	static load() {
 		var todoStr = localStorage.getItem("todos");
 		var todos = JSON.parse(todoStr);
@@ -43,24 +43,10 @@ class TodoList {
 			return new Todo(todo.text, todo.isComplete);
 		});
 		}
-		
+		localStorage.setItem("todos",todoStr);
 		var todoList = new TodoList(toDos);
 		return todoList;
 	}
-	
-=======
-		localStorage.setItem("todos",todoStr);
-	}
-	static load(){
-		var todoStr = localStorage.getItem('todos');
-		var todos = JSON.parse(todoStr);
-		var todos = todos.map(function(todo){
-			return new Todo(todo.text,todo.isComplete);
-		});
-		var todoList = new TodoList(todos);
-		return todoList;
-	}
->>>>>>> a634473c0d5573a26eeeee17fd1fdc2533cb0d50
 }
 
 class TodoView {
@@ -78,7 +64,7 @@ class TodoView {
 
 		this.$closeBtn = document.createElement('span');
 		this.$closeBtn.textContent = "✘";
-		this.$closeBtn.className = "close";
+		this.$closeBtn.className = "closeB";
 		this.$closeBtn.onclick = this._onRemove.bind(this);
 
 
@@ -92,17 +78,17 @@ class TodoView {
 		$el.appendChild(this.$closeBtn);
 
 
-		this.$el = $el;
+		this.$el = $el; 
 	}
 
 	_onToggle() {
 		this.todo.isComplete = this.$checkBtn.checked;
 		if (this.$checkBtn.checked) {
 			this.$text.style.textDecoration = 'line-through';
-			this.$text.style.color = '#999';
+			this.$text.style.color = '#ccc';
 		} else {
 			this.$text.style.textDecoration = 'none';
-			this.$text.style.color = '#000';
+			this.$text.style.color = '#fff';
 		}
 	}
 
@@ -116,23 +102,21 @@ class TodoView {
 		if (!this.$el) {
 			this._build();
 		}
-
 		return this.$el
 	}
 
 	setText(newText) {
-		this.todo.text = newText;
 		this.$text.textContent = newText;
 	}
 
 	_onFormSubmit(e) {
 		e.preventDefault();
-		
 		const $input = e.target[0];
 		const value = $input.value.trim();
 		if (value.length) {
 			this.setText(value);
 			this.hideEditor();
+			
 		}
 	}
 
@@ -188,7 +172,6 @@ class TodoListView {
 		if (text.length) {
 			const todo = this.todoList.add(text);
 			this._createNewElement(todo);
-
 			this.$textInput.value = '';
 		}
 	}
