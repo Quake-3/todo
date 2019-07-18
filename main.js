@@ -1,4 +1,4 @@
-$("#todoInput").focus();
+window.onload = document.getElementById('todoInput').focus();
 
 class Todo {
 	constructor(text, isComplete = false) {
