@@ -1,3 +1,5 @@
+$("#todoInput").focus();
+
 class Todo {
 	constructor(text, isComplete = false) {
 		this.text = text;
@@ -57,6 +59,7 @@ class TodoView {
 
 	_build() {
 		const $el = document.createElement('li');
+		$el.style.opacity = 0;
 		$el.ondblclick = this.showEditor.bind(this);
 
 		this.$text = document.createElement('span');
@@ -76,7 +79,7 @@ class TodoView {
 		$el.appendChild(this.$checkBtn);
 		$el.appendChild(this.$text);
 		$el.appendChild(this.$closeBtn);
-
+		$el.style.opacity = 1;
 
 		this.$el = $el; 
 	}

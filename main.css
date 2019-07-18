@@ -1,3 +1,7 @@
+* {
+	transition: all .3s;
+}
+
 body {
 	text-align: center;
 	font-size: 1.5em;
@@ -63,16 +67,16 @@ li {
 	margin-top: 25px;
 	text-align: left;
 	transition: all .3s;
-	background: #0870B8;
+	background: #0082ce;
 	border-radius: 10px 10px;
-	box-shadow: 0 10px 20px 1px #0870B8;
+	box-shadow: 0 10px 20px 1px rgba(8, 112, 184);
 	color: #fff;
 
 }
 
 #myUL > li:hover {
-	background: rgb(1, 131, 224);
-	box-shadow: 0 10px 25px 1px rgb(1, 131, 224);
+	background: #00a2ff;
+	box-shadow: 0 10px 25px 1px rgba(1, 131, 224,.6);
 }
 
 
@@ -99,7 +103,7 @@ li {
 }
 
 .closeB:hover {
-	box-shadow: 0 10px 25px 5px #ff4c4c;	
+	box-shadow: 0 10px 25px 1px rgba(255, 76, 76,.6);	
 	color: #fff;
 	z-index: 0;
 }
