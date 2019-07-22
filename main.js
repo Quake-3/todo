@@ -1,15 +1,19 @@
-window.onload = document.getElementById('todoInput').focus();
-
 class Todo {
-	constructor(text, isComplete = false) {
+	constructor(text, isComplete = false,onChange = null) {
 		this.text = text;
 		this.isComplete = isComplete;
+		this.onChange = onChange;
 	}
 	toggleComplete() {
 		this.isComplete = !this.isComplete;
 	}
+	edit(text) {
+		if(!text) return;      
+		this.text = text;
+		if(this.onChange) this.onChange(this);
+		return this;
+	}
 }
-
 
 class TodoList {
 	constructor(todos = []) {
@@ -17,7 +21,7 @@ class TodoList {
 	}
 
 	add(text) {
-		var todo = new Todo(text);
+		var todo = new Todo(text,false,this.save.bind(this));
 		this.todos.push(todo);
 		this.save();
 		return todo;
@@ -42,7 +46,7 @@ class TodoList {
 		var todos = JSON.parse(todoStr);
 		if(todos !== null) {
 		var toDos = todos.map(function (todo) {
-			return new Todo(todo.text, todo.isComplete);
+			return new Todo(todo.text, todo.isComplete,this.save.bind(this));
 		});
 		}
 		localStorage.setItem("todos",todoStr);
@@ -199,3 +203,5 @@ const list = TodoList.load();
 const listView = new TodoListView(list);
 
 window.list = list;
+
+window.onload = document.getElementById('todoInput').focus();

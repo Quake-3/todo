@@ -79,10 +79,13 @@ li {
 	box-shadow: 0 10px 25px 1px rgba(1, 131, 224,.6);
 }
 
+.footer {
+	margin-top: 50px;
+}
 
 .footer > span {
 	display: block;
-	color: #eee;
+	color: rgba(238, 238, 238,.6);
 	font-size: 15px;
 }
 .closeB {
@@ -103,9 +106,7 @@ li {
 }
 
 .closeB:hover {
-	box-shadow: 0 10px 25px 1px rgba(255, 76, 76,.6);	
-	color: #fff;
-	z-index: 0;
+	background: #ff3030;	
 }
 
 p {
@@ -156,10 +157,10 @@ p {
 
 @media screen and (max-width:550px) {
 	#myUL {
-		width: 100%;
+		width: 80%
 		margin: 25px auto;
 	}
 	.closeB {
-		right: 0;
+		right: 5%;
 	}
 }
