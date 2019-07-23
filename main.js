@@ -101,7 +101,9 @@ class TodoList {
 
 /**
  * 
- * static load - статический метод (статический, значит его можно вызвать только чеерез имя класса), отвечающий за преобразование строки из localStorage обратно в массив объектов и если массив не пустой, то для каждого элемента массива применить функцию, создание нового списка из перебранных todo.
+ * static load - статический метод (статический, значит его можно вызвать только чеерез имя класса), 
+ * отвечающий за преобразование строки из localStorage обратно в массив объектов и если массив не пустой, 
+ * то для каждого элемента массива применить функцию, создание нового списка из перебранных todo.
  * 
  */
 
@@ -142,6 +144,7 @@ class TodoView {
 
 		this.$text = document.createElement('span');//создание span.
 		this.$text.textContent = this.todo.text;//текст в span взять из todo.
+		this.$text.className = 'content';
 
 		this.$closeBtn = document.createElement('span');//создает span, который будет играть роль кнопки удаления элемента списка.
 		this.$closeBtn.textContent = "✘";//задает текст внутри span.
@@ -254,7 +257,7 @@ class TodoView {
 		$form.className = 'editor';//изменение класса $form.
 		const $input = document.createElement('input');//создание input для ввода текста.
 		$input.value = this.todo.text;//изменить значение в input на текст из todo.
-		$input.maxLength = 35;//задает max число символов в input - 35 symbols.
+		$input.maxLength = 50;//задает max число символов в input - 35 symbols.
 		$input.className = "editInput"//меняет класс input.
 		$form.onsubmit = this._onFormSubmit.bind(this);//при отправке формы передать метод _onFormSubmit.
 		$form.hidden = true; // по-умолчанию форма скрыта
