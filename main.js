@@ -4,13 +4,19 @@ class Todo {
 		this.isComplete = isComplete;
 		this.onChange = onChange;
 	}
+
 	toggleComplete() {
 		this.isComplete = !this.isComplete;
+		if (this.onChange) this.onChange(this);
+		return this;
 	}
+
 	edit(text) {
-		if(!text) return;      
-		this.text = text;
-		if(this.onChange) this.onChange(this);
+		if (text) {
+			this.text = text;
+			this.onChange && this.onChange(this);
+		}
+
 		return this;
 	}
 }
@@ -18,6 +24,9 @@ class Todo {
 class TodoList {
 	constructor(todos = []) {
 		this.todos = todos;
+		this.todos.forEach((todo) => {
+			todo.onChange = this.save.bind(this);
+		})
 	}
 
 	add(text) {
@@ -46,10 +55,9 @@ class TodoList {
 		var todos = JSON.parse(todoStr);
 		if(todos !== null) {
 		var toDos = todos.map(function (todo) {
-			return new Todo(todo.text, todo.isComplete,this.save.bind(this));
+			return new Todo(todo.text, todo.isComplete);
 		});
 		}
-		localStorage.setItem("todos",todoStr);
 		var todoList = new TodoList(toDos);
 		return todoList;
 	}
@@ -79,6 +87,9 @@ class TodoView {
 		this.$checkBtn.type = "checkbox";
 		this.$checkBtn.className = "checkboxBtn";
 		this.$checkBtn.onchange = this._onToggle.bind(this);
+		this.$checkBtn.checked = this.todo.isComplete;
+
+		this._setTextStyle();
 
 		$el.appendChild(this.$checkBtn);
 		$el.appendChild(this.$text);
@@ -88,15 +99,19 @@ class TodoView {
 		this.$el = $el; 
 	}
 
-	_onToggle() {
-		this.todo.isComplete = this.$checkBtn.checked;
-		if (this.$checkBtn.checked) {
+	_setTextStyle() {
+		if (this.todo.isComplete) {
 			this.$text.style.textDecoration = 'line-through';
 			this.$text.style.color = '#ccc';
 		} else {
 			this.$text.style.textDecoration = 'none';
 			this.$text.style.color = '#fff';
 		}
+	}
+
+	_onToggle() {
+		this.todo.toggleComplete();
+		this._setTextStyle();
 	}
 
 	_onRemove() {
@@ -114,6 +129,7 @@ class TodoView {
 
 	setText(newText) {
 		this.$text.textContent = newText;
+		this.todo.edit(newText);
 	}
 
 	_onFormSubmit(e) {
@@ -123,7 +139,6 @@ class TodoView {
 		if (value.length) {
 			this.setText(value);
 			this.hideEditor();
-			
 		}
 	}
 
@@ -135,7 +150,7 @@ class TodoView {
 		$input.maxLength = 35;
 		$input.className = "editInput"
 		$form.onsubmit = this._onFormSubmit.bind(this);
-		$form.hidden = true; // by default form is hidden 
+		$form.hidden = true; // по-умолчанию форма скрыта
 		$form.appendChild($input);
 		return $form;
 	}
@@ -200,8 +215,6 @@ class TodoListView {
 }
 
 const list = TodoList.load();
-const listView = new TodoListView(list);
-
-window.list = list;
+new TodoListView(list);
 
 window.onload = document.getElementById('todoInput').focus();
