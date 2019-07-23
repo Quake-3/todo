@@ -188,15 +188,19 @@ p {
 		width: 75%;
 	}
 
+	.todo-input {
+		width: 95%;
+	}
+
 	#myUL > li {
-		height: 65px;
+		height: 80px;
 	}
 	#myUL {
-		width: 80%
+		width: 95%
 		margin: 25px auto;
 	}
 	.closeB {
-		height: 65px;
+		height: 80px;
 		right: 5%;
 	}
 }
